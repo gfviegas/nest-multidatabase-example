@@ -1,0 +1,6 @@
+scalar Date
+scalar DateTime
+scalar EmailAddress
+scalar JSON
+scalar ObjectID
+scalar URL

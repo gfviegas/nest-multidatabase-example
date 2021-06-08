@@ -1,0 +1,37 @@
+version: '3.8'
+
+networks:
+  boilerplate:
+    driver: bridge
+
+services:
+  # Exemplo: usando mongo
+  mongo:
+    networks:
+      - boilerplate
+    container_name: boilerplate-mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./tmp/backups:/data/backups
+
+  api:
+    networks:
+      - boilerplate
+    build:
+      context: .
+    image: boilerplate-api
+    container_name: boilerplate-api
+    command: yarn run start:dev
+    build:
+      context: .
+    volumes:
+      - ./:/code
+      - ./node_modules:/code/node_modules
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    depends_on:
+      - mongo

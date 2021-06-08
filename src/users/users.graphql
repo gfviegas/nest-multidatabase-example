@@ -1,0 +1,38 @@
+"Representa um usuário na plataforma"
+type User {
+  "Identificador único na plataforma"
+  id: ObjectID!
+  "Nome completo"
+  name: String!
+  "Endereço de email"
+  email: EmailAddress!
+  "Idade em anos"
+  age: Int
+}
+
+"Parâmetros de entrada para o cadastro de um usuário na plataforma"
+input CreateUserInput {
+  "Primeiro nome"
+  firstName: String!
+  "Sobrenome"
+  lastName: String!
+  "Endereço de email"
+  email: EmailAddress!
+  "Data de Nascimento"
+  birthDate: Date
+}
+
+input UpdateUserInput {
+  id: ObjectID!
+}
+
+type Query {
+  users: [User]!
+  user(id: ObjectID!): User
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: ObjectID!): User
+}
