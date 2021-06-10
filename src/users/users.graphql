@@ -32,6 +32,7 @@ type Query {
 }
 
 type Mutation {
+  "Cria um usuário na plataforma"
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: ObjectID!): User

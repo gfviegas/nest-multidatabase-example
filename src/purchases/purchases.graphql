@@ -1,0 +1,33 @@
+"Representa uma compra na plataforma"
+type Purchase {
+  "Identificador único na plataforma"
+  id: Int!
+  "Descrição da compra"
+  description: String!
+  "Usuário associado à compra"
+  user: User!
+  "Valor da compra (em centavos de R$)"
+  amount: Int!
+  "Data da compra"
+  createdAt: DateTime!
+}
+
+"Parâmetros de entrada para o cadastro de um usuário na plataforma"
+input CreatePurchaseInput {
+  "Descrição da compra"
+  description: String!
+  "Usuário associado à compra"
+  user: ObjectID!
+  "Valor da compra (em centavos de R$)"
+  amount: Int!
+}
+
+type Query {
+  purchases: [Purchase]!
+  purchase(id: Int!): Purchase
+}
+
+type Mutation {
+  "Cria uma compra na plataforma"
+  createPurchase(createPurchaseInput: CreatePurchaseInput!): Purchase!
+}

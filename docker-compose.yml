@@ -4,6 +4,10 @@ networks:
   boilerplate:
     driver: bridge
 
+volumes:
+  pgdata:
+  mongodata:
+
 services:
   # Exemplo: usando mongo
   mongo:
@@ -12,9 +16,25 @@ services:
     container_name: boilerplate-mongo
     image: mongo
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - ./tmp/backups:/data/backups
+      - mongodata:/data/db
+
+      # Exemplo: usando postgres
+  psql:
+    networks:
+      - boilerplate
+    container_name: boilerplate-psql
+    image: postgres:12.1
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=boilerplate
+      - POSTGRES_USER=boilerplate
+      - POSTGRES_PASSWORD=boilerplate
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   api:
     networks:
@@ -33,5 +53,7 @@ services:
       - 3000:3000
     links:
       - mongo
+      - psql
     depends_on:
       - mongo
+      - psql

@@ -14,7 +14,7 @@ const SALT_ROUNDS = 10
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
+    @InjectRepository(User, 'mongoConnection')
     private userRepository: Repository<User>
   ) {}
 
